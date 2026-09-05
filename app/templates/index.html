@@ -1,232 +1,497 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>AI Finance Controller</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
- <div class="dashboard">
-   <div>
+
+<div class="dashboard">
+
+    <!-- NAVBAR -->
     <nav class="navbar">
-    <div class="logo">AI Finance Controller</div>
 
-    <div class="nav-links">
-        <a href="/">Dashboard</a>
-        <a href="#monthly">Monthly Analysis</a>
-        <a href="#insights">AI Insights</a>
-        <a href="#forecast">Forecast</a>
-        <a href="#anomalies">Anomalies</a>
-    </div>
-</nav>
-    <h1>AI Finance Controller</h1>
+        <div class="logo">
+            AI Finance Controller
+        </div>
 
-    <h2>AI-Powered Financial Analytics Dashboard</h2>
+        <div class="nav-links">
+            <a href="/">Dashboard</a>
+            <a href="#monthly">Monthly Analysis</a>
+            <a href="#insights">AI Insights</a>
+            <a href="#forecast">Forecast</a>
+            <a href="#anomalies">Anomalies</a>
+        </div>
 
-    <p>AI-powered financial data analytics and forecasting system.</p>
+    </nav>
 
-    <hr>
+
+    <!-- HEADER -->
     <div>
+
+        <h1>AI Finance Controller</h1>
+
+        <h2>AI-Powered Financial Analytics Dashboard</h2>
+
+        <p>
+            AI-powered financial data analytics, anomaly detection
+            and revenue forecasting system.
+        </p>
+
+        <hr>
+
+    </div>
+
+
+    <!-- FINANCIAL OVERVIEW -->
     <h2>Financial Overview</h2>
+
     <div class="cards">
-    <div class="card">
-        <h3>Total Revenue</h3>
-        <p id="revenue">Loading...</p>
+
+        <div class="card">
+            <h3>Total Revenue (₹)</h3>
+            <p id="revenue">Loading...</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Expense (₹)</h3>
+            <p id="expense">Loading...</p>
+        </div>
+
+        <div class="card">
+            <h3>Net Profit (₹)</h3>
+            <p id="profit">Loading...</p>
+        </div>
+
+        <div class="card">
+            <h3>Unusual Transactions</h3>
+            <p id="anomalies">Loading...</p>
+        </div>
+
     </div>
 
-    <div class="card">
-        <h3>Total Expense (₹)</h3>
-        <p id="expense">Loading...</p>
-    </div>
 
-    <div class="card">
-        <h3>Net Profit (₹)</h3>
-        <p id="profit">Loading...</p>
-    </div>
-
-    <div class="card">
-        <h3>Unusual Transactions</h3>
-        <p id="anomalies">Loading...</p>
-    </div>
-    </div>
+    <!-- MONTHLY ANALYSIS -->
     <div class="card" id="monthly" style="margin-top: 30px;">
-    <h2>Monthly Financial Performance</h2>
 
-    <p>
-        Monthly Revenue, Expense and Profit analysis
-    </p>
+        <h2>Monthly Financial Performance</h2>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Month</th>
-                <th>Revenue</th>
-                <th>Expense</th>
-                <th>Profit</th>
-            </tr>
-        </thead>
+        <p>
+            Monthly Revenue, Expense and Profit analysis
+        </p>
 
-        <tbody id="monthly-data">
-            <tr>
-                <td colspan="4">Loading...</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+        <canvas id="monthlyChart"></canvas>
 
+        <table>
 
-    <ul id="insights">
-        <li>Loading financial insights...</li>
-    </ul>
-</div>
-<div class="card" id="forecast" style="margin-top: 30px;">
-    <h2>Revenue Forecast</h2>
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Revenue</th>
+                    <th>Expense</th>
+                    <th>Profit</th>
+                </tr>
+            </thead>
 
-    <p>Next 6 Months Revenue Forecast</p>
+            <tbody id="monthly-data">
 
-    <table>
-        <thead>
-            <tr>
-                <th>Month</th>
-                <th>Forecasted Revenue</th>
-            </tr>
-        </thead>
+                <tr>
+                    <td colspan="4">Loading...</td>
+                </tr>
 
-        <tbody id="forecast-data">
-            <tr>
-                <td colspan="2">Loading...</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<div class="card" id="anomalies" style="margin-top: 30px;">
-    <h2>Anomaly Transaction Details</h2>
+            </tbody>
 
-    <p>Top 10 high-value unusual transactions</p>
+        </table>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Transaction ID</th>
-                <th>Amount</th>
-                <th>Category</th>
-                <th>Department</th>
-                <th>Payment Method</th>
-                <th>Region</th>
-            </tr>
-        </thead>
-
-        <tbody id="anomaly-details">
-            <tr>
-                <td colspan="6">Loading...</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
     </div>
+
+
+    <!-- AI INSIGHTS -->
+    <div class="card" id="insights" style="margin-top: 30px;">
+
+        <h2>AI Financial Insights</h2>
+
+        <ul id="insights-list">
+
+            <li>Loading financial insights...</li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- REVENUE FORECAST -->
+    <div class="card" id="forecast" style="margin-top: 30px;">
+
+        <h2>Revenue Forecast</h2>
+
+        <p>
+            Next 6 Months Revenue Forecast
+        </p>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Forecasted Revenue</th>
+                </tr>
+            </thead>
+
+            <tbody id="forecast-data">
+
+                <tr>
+                    <td colspan="2">Loading...</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- ANOMALY DETAILS -->
+    <div class="card" id="anomalies" style="margin-top: 30px;">
+
+        <h2>Anomaly Transaction Details</h2>
+
+        <p>
+            Top 10 high-value unusual transactions
+        </p>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Amount</th>
+                    <th>Category</th>
+                    <th>Department</th>
+                    <th>Payment Method</th>
+                    <th>Region</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="anomaly-details">
+
+                <tr>
+                    <td colspan="6">Loading...</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <p>
+            AI Finance Controller | Financial Analytics & Forecasting
+        </p>
+
+        <p>
+            Developed as an MCA Data Analytics Project
+        </p>
+
+    </footer>
+
 </div>
-</div>
+
+
+<!-- JAVASCRIPT -->
 <script>
+
+    // =========================
+    // FINANCIAL SUMMARY
+    // =========================
+
     fetch("/api/summary")
+
         .then(response => response.json())
+
         .then(data => {
+
             document.getElementById("revenue").textContent =
-                "₹ " + (data.total_revenue / 10000000).toFixed(2) + " Cr";
+                "₹ " +
+                (data.total_revenue / 10000000).toFixed(2) +
+                " Cr";
 
             document.getElementById("expense").textContent =
-                "₹ " + (data.total_expense / 10000000).toFixed(2) + " Cr";
+                "₹ " +
+                (data.total_expense / 10000000).toFixed(2) +
+                " Cr";
 
             document.getElementById("profit").textContent =
-                "₹ " + (data.total_revenue / 10000000).toFixed(2) + " Cr";
+                "₹ " +
+                (data.net_profit / 10000000).toFixed(2) +
+                " Cr";
+
         });
 
+
+    // =========================
+    // ANOMALIES COUNT
+    // =========================
+
     fetch("/api/anomalies")
+
         .then(response => response.json())
+
         .then(data => {
+
             document.getElementById("anomalies").textContent =
                 data.total_anomalies.toLocaleString();
+
         });
-        fetch("/api/monthly")
+
+
+    // =========================
+    // MONTHLY ANALYSIS + CHART
+    // =========================
+
+    fetch("/api/monthly")
+
         .then(response => response.json())
+
         .then(data => {
-            const tableBody = document.getElementById("monthly-data");
+
+            const tableBody =
+                document.getElementById("monthly-data");
 
             tableBody.innerHTML = "";
 
+
+            // Monthly table
+
             data.data.forEach(row => {
-                const tr = document.createElement("tr");
+
+                const tr =
+                    document.createElement("tr");
 
                 tr.innerHTML = `
                     <td>${row.month}</td>
-                    <td>₹ ${row.revenue.toLocaleString()}</td>
-                    <td>₹ ${row.expense.toLocaleString()}</td>
-                    <td>₹ ${row.profit.toLocaleString()}</td>
+                    <td>₹ ${Number(row.revenue).toLocaleString()}</td>
+                    <td>₹ ${Number(row.expense).toLocaleString()}</td>
+                    <td>₹ ${Number(row.profit).toLocaleString()}</td>
                 `;
 
                 tableBody.appendChild(tr);
+
             });
+
+
+            // Monthly chart
+
+            const ctx =
+                document.getElementById("monthlyChart");
+
+
+            new Chart(ctx, {
+
+                type: "line",
+
+                data: {
+
+                    labels:
+                        data.data.map(row => row.month),
+
+                    datasets: [
+
+                        {
+                            label: "Revenue",
+
+                            data:
+                                data.data.map(
+                                    row => row.revenue
+                                ),
+
+                            tension: 0.3
+                        },
+
+                        {
+                            label: "Expense",
+
+                            data:
+                                data.data.map(
+                                    row => row.expense
+                                ),
+
+                            tension: 0.3
+                        },
+
+                        {
+                            label: "Profit",
+
+                            data:
+                                data.data.map(
+                                    row => row.profit
+                                ),
+
+                            tension: 0.3
+                        }
+
+                    ]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: true,
+
+                    scales: {
+
+                        x: {
+
+                            ticks: {
+
+                                maxRotation: 45,
+
+                                minRotation: 45
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            });
+
         });
-        fetch("/api/insights")
+
+
+    // =========================
+    // AI FINANCIAL INSIGHTS
+    // =========================
+
+    fetch("/api/insights")
+
         .then(response => response.json())
+
         .then(data => {
-            const insightsList = document.getElementById("insights");
+
+            const insightsList =
+                document.getElementById("insights-list");
 
             insightsList.innerHTML = "";
 
+
             data.insights.forEach(insight => {
-                const li = document.createElement("li");
+
+                const li =
+                    document.createElement("li");
+
                 li.textContent = insight;
+
                 insightsList.appendChild(li);
+
             });
+
         });
-        fetch("/api/forecast")
+
+
+    // =========================
+    // REVENUE FORECAST
+    // =========================
+
+    fetch("/api/forecast")
+
         .then(response => response.json())
+
         .then(data => {
-            const forecastTable = document.getElementById("forecast-data");
+
+            const forecastTable =
+                document.getElementById("forecast-data");
 
             forecastTable.innerHTML = "";
 
+
             data.forecast.forEach(row => {
-                const tr = document.createElement("tr");
+
+                const tr =
+                    document.createElement("tr");
 
                 tr.innerHTML = `
                     <td>${row.month}</td>
-                    <td>₹ ${Number(row.forecasted_revenue).toLocaleString()}</td>
+                    <td>
+                        ₹ ${Number(
+                            row.forecasted_revenue
+                        ).toLocaleString()}
+                    </td>
                 `;
 
                 forecastTable.appendChild(tr);
+
             });
+
         });
-        fetch("/api/anomaly-details")
+
+
+    // =========================
+    // ANOMALY DETAILS
+    // =========================
+
+    fetch("/api/anomaly-details")
+
         .then(response => response.json())
+
         .then(data => {
+
             const anomalyTable =
                 document.getElementById("anomaly-details");
 
             anomalyTable.innerHTML = "";
 
+
             data.anomalies.forEach(row => {
-                const tr = document.createElement("tr");
+
+                const tr =
+                    document.createElement("tr");
 
                 tr.innerHTML = `
                     <td>${row.transaction_id}</td>
-                    <td>₹ ${Number(row.amount).toLocaleString()}</td>
+
+                    <td>
+                        ₹ ${Number(
+                            row.amount
+                        ).toLocaleString()}
+                    </td>
+
                     <td>${row.category}</td>
+
                     <td>${row.department}</td>
+
                     <td>${row.payment_method}</td>
+
                     <td>${row.region}</td>
                 `;
 
                 anomalyTable.appendChild(tr);
+
             });
+
         });
+
 </script>
-</div>
-<footer class="footer">
-    <p>AI Finance Controller | Financial Analytics & Forecasting</p>
-    <p>Developed as an MCA Data Analytics Project</p>
-</footer>
+
 </body>
+
 </html>
