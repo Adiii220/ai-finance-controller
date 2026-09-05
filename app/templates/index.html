@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>AI Finance Controller</title>
 
@@ -13,208 +15,1092 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
+
 <body>
 
-<div class="dashboard">
+<div class="app-layout">
 
-    <!-- NAVBAR -->
-    <nav class="navbar">
 
-        <div class="logo">
-            AI Finance Controller
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                ₹
+            </div>
+
+            <div>
+                <h2>AI Finance</h2>
+                <span>Controller</span>
+            </div>
+
         </div>
 
-        <div class="nav-links">
-            <a href="/">Dashboard</a>
-            <a href="#monthly">Monthly Analysis</a>
-            <a href="#insights">AI Insights</a>
-            <a href="#forecast">Forecast</a>
-            <a href="#anomalies">Anomalies</a>
+
+        <div class="sidebar-line"></div>
+
+
+        <p class="menu-title">
+            MAIN MENU
+        </p>
+
+
+        <nav class="sidebar-menu">
+
+            <button
+                class="nav-item active"
+                onclick="showSection('dashboard', this)">
+
+                <span>⌂</span>
+                Dashboard
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="showSection('monthly', this)">
+
+                <span>▥</span>
+                Monthly Analysis
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="showSection('insights', this)">
+
+                <span>✦</span>
+                AI Insights
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="showSection('reconciliation', this)">
+
+                <span>↔</span>
+                Reconciliation
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="showSection('forecast', this)">
+
+                <span>↗</span>
+                Forecast
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="showSection('anomalies', this)">
+
+                <span>⚠</span>
+                Anomalies
+
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="system-status">
+
+                <span class="status-dot"></span>
+
+                <div>
+
+                    <strong>
+                        System Online
+                    </strong>
+
+                    <small>
+                        Financial API connected
+                    </small>
+
+                </div>
+
+            </div>
+
         </div>
 
-    </nav>
+    </aside>
 
 
-    <!-- HEADER -->
-    <div>
 
-        <h1>AI Finance Controller</h1>
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
 
-        <h2>AI-Powered Financial Analytics Dashboard</h2>
-
-        <p>
-            AI-powered financial data analytics, anomaly detection
-            and revenue forecasting system.
-        </p>
-
-        <hr>
-
-    </div>
+    <main class="main-content">
 
 
-    <!-- FINANCIAL OVERVIEW -->
-    <h2>Financial Overview</h2>
+        <!-- TOP BAR -->
 
-    <div class="cards">
+        <header class="topbar">
 
-        <div class="card">
-            <h3>Total Revenue (₹)</h3>
-            <p id="revenue">Loading...</p>
-        </div>
+            <div>
 
-        <div class="card">
-            <h3>Total Expense (₹)</h3>
-            <p id="expense">Loading...</p>
-        </div>
+                <p class="breadcrumb">
+                    AI Finance Controller
+                </p>
 
-        <div class="card">
-            <h3>Net Profit (₹)</h3>
-            <p id="profit">Loading...</p>
-        </div>
+                <h1 id="page-title">
+                    Financial Dashboard
+                </h1>
 
-        <div class="card">
-            <h3>Unusual Transactions</h3>
-            <p id="anomalies">Loading...</p>
-        </div>
-
-    </div>
+            </div>
 
 
-    <!-- MONTHLY ANALYSIS -->
-    <div class="card" id="monthly" style="margin-top: 30px;">
+            <div class="topbar-status">
 
-        <h2>Monthly Financial Performance</h2>
+                <span class="status-dot"></span>
 
-        <p>
-            Monthly Revenue, Expense and Profit analysis
-        </p>
+                Live Analytics
 
-        <canvas id="monthlyChart"></canvas>
+            </div>
 
-        <table>
-
-            <thead>
-                <tr>
-                    <th>Month</th>
-                    <th>Revenue</th>
-                    <th>Expense</th>
-                    <th>Profit</th>
-                </tr>
-            </thead>
-
-            <tbody id="monthly-data">
-
-                <tr>
-                    <td colspan="4">Loading...</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
+        </header>
 
 
-    <!-- AI INSIGHTS -->
-    <div class="card" id="insights" style="margin-top: 30px;">
 
-        <h2>AI Financial Insights</h2>
+        <!-- =========================
+             DASHBOARD
+        ========================== -->
 
-        <ul id="insights-list">
-
-            <li>Loading financial insights...</li>
-
-        </ul>
-
-    </div>
+        <section
+            id="dashboard"
+            class="content-section active-section">
 
 
-    <!-- REVENUE FORECAST -->
-    <div class="card" id="forecast" style="margin-top: 30px;">
+            <div class="welcome-box">
 
-        <h2>Revenue Forecast</h2>
+                <p class="section-label">
+                    FINANCIAL CONTROL CENTER
+                </p>
 
-        <p>
-            Next 6 Months Revenue Forecast
-        </p>
+                <h2>
+                    Welcome to AI Finance Controller
+                </h2>
 
-        <table>
+                <p>
+                    Monitor financial performance,
+                    identify unusual transactions,
+                    reconcile financial records
+                    and forecast future revenue.
+                </p>
 
-            <thead>
-                <tr>
-                    <th>Month</th>
-                    <th>Forecasted Revenue</th>
-                </tr>
-            </thead>
-
-            <tbody id="forecast-data">
-
-                <tr>
-                    <td colspan="2">Loading...</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
+            </div>
 
 
-    <!-- ANOMALY DETAILS -->
-    <div class="card" id="anomalies" style="margin-top: 30px;">
-
-        <h2>Anomaly Transaction Details</h2>
-
-        <p>
-            Top 10 high-value unusual transactions
-        </p>
-
-        <table>
-
-            <thead>
-
-                <tr>
-                    <th>Transaction ID</th>
-                    <th>Amount</th>
-                    <th>Category</th>
-                    <th>Department</th>
-                    <th>Payment Method</th>
-                    <th>Region</th>
-                </tr>
-
-            </thead>
-
-            <tbody id="anomaly-details">
-
-                <tr>
-                    <td colspan="6">Loading...</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
+            <h2 class="section-heading">
+                Financial Overview
+            </h2>
 
 
-    <!-- FOOTER -->
-    <footer class="footer">
+            <div class="kpi-grid">
 
-        <p>
-            AI Finance Controller | Financial Analytics & Forecasting
-        </p>
 
-        <p>
-            Developed as an MCA Data Analytics Project
-        </p>
+                <div class="kpi-card">
 
-    </footer>
+                    <div class="kpi-icon">
+                        ₹
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Total Revenue
+                        </h3>
+
+                        <p id="revenue">
+                            Loading...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-icon">
+                        ↓
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Total Expense
+                        </h3>
+
+                        <p id="expense">
+                            Loading...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-icon">
+                        ↑
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Net Profit
+                        </h3>
+
+                        <p id="profit">
+                            Loading...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-icon">
+                        ⚠
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Unusual Transactions
+                        </h3>
+
+                        <p id="anomaly-count">
+                            Loading...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="dashboard-info-grid">
+
+
+                <div class="info-card">
+
+                    <h3>
+                        Financial Performance
+                    </h3>
+
+                    <p>
+                        Analyze monthly revenue,
+                        expenses and profit using
+                        the financial analysis module.
+                    </p>
+
+                    <button
+                        class="action-button"
+                        onclick="showSectionById('monthly')">
+
+                        View Monthly Analysis →
+
+                    </button>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <h3>
+                        Finance Operations
+                    </h3>
+
+                    <p>
+                        Automatically match financial
+                        records and identify unresolved
+                        reconciliation exceptions.
+                    </p>
+
+                    <button
+                        class="action-button"
+                        onclick="showSectionById('reconciliation')">
+
+                        Open Reconciliation →
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             MONTHLY ANALYSIS
+        ========================== -->
+
+        <section
+            id="monthly"
+            class="content-section">
+
+
+            <div class="section-header">
+
+                <p class="section-label">
+                    FINANCIAL ANALYSIS
+                </p>
+
+                <h2>
+                    Monthly Financial Performance
+                </h2>
+
+                <p>
+                    Monthly Revenue, Expense and Profit analysis
+                </p>
+
+            </div>
+
+
+            <div class="chart-card">
+
+                <canvas id="monthlyChart"></canvas>
+
+            </div>
+
+
+            <div class="table-card">
+
+                <h3>
+                    Monthly Financial Data
+                </h3>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Month</th>
+                                <th>Revenue</th>
+                                <th>Expense</th>
+                                <th>Profit</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="monthly-data">
+
+                            <tr>
+
+                                <td colspan="4">
+                                    Loading...
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             AI INSIGHTS
+        ========================== -->
+
+        <section
+            id="insights"
+            class="content-section">
+
+
+            <div class="section-header">
+
+                <p class="section-label">
+                    ARTIFICIAL INTELLIGENCE
+                </p>
+
+                <h2>
+                    AI Financial Insights
+                </h2>
+
+                <p>
+                    Automated insights generated
+                    from financial analytics.
+                </p>
+
+            </div>
+
+
+            <div class="insight-box">
+
+                <div class="ai-symbol">
+                    ✦
+                </div>
+
+                <div>
+
+                    <h3>
+                        Financial Intelligence
+                    </h3>
+
+                    <p>
+                        The system analyzes financial
+                        performance and highlights
+                        important areas requiring attention.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-card">
+
+                <ul
+                    id="insights-list"
+                    class="insights-list">
+
+                    <li>
+                        Loading financial insights...
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             RECONCILIATION
+        ========================== -->
+
+        <section
+            id="reconciliation"
+            class="content-section">
+
+
+            <div class="section-header">
+
+                <p class="section-label">
+                    FINANCE OPERATIONS
+                </p>
+
+                <h2>
+                    AI Finance Reconciliation Agent
+                </h2>
+
+                <p>
+                    Automated matching of financial records
+                    and identification of unresolved exceptions.
+                </p>
+
+            </div>
+
+
+            <div class="kpi-grid">
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-icon">
+                        #
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Total Records
+                        </h3>
+
+                        <p id="recon-total">
+                            Loading...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Matched Records
+                        </h3>
+
+                        <p id="recon-matched">
+                            Loading...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-icon">
+                        !
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Exceptions
+                        </h3>
+
+                        <p id="recon-exceptions">
+                            Loading...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-icon">
+                        %
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Match Rate
+                        </h3>
+
+                        <p id="recon-rate">
+                            Loading...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- AI RECONCILIATION INSIGHT -->
+
+            <div class="ai-result-card">
+
+                <div class="ai-symbol">
+                    ✦
+                </div>
+
+                <div>
+
+                    <h3>
+                        AI Reconciliation Insight
+                    </h3>
+
+                    <p id="recon-insight">
+                        Generating reconciliation insight...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- EXCEPTIONS TABLE -->
+
+            <div class="table-card">
+
+                <h3>
+                    Unresolved Exceptions
+                </h3>
+
+                <p class="table-description">
+                    Transactions that could not be
+                    automatically reconciled.
+                </p>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Transaction ID
+                                </th>
+
+                                <th>
+                                    Transaction Amount
+                                </th>
+
+                                <th>
+                                    Paid Amount
+                                </th>
+
+                                <th>
+                                    Difference
+                                </th>
+
+                                <th>
+                                    Reason
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="reconciliation-data">
+
+                            <tr>
+
+                                <td colspan="5">
+                                    Loading...
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             FORECAST
+        ========================== -->
+
+        <section
+            id="forecast"
+            class="content-section">
+
+
+            <div class="section-header">
+
+                <p class="section-label">
+                    PREDICTIVE ANALYTICS
+                </p>
+
+                <h2>
+                    Revenue Forecast
+                </h2>
+
+                <p>
+                    Predicted revenue for the next
+                    six months.
+                </p>
+
+            </div>
+
+
+            <div class="forecast-highlight">
+
+                <div class="forecast-icon">
+                    ↗
+                </div>
+
+                <div>
+
+                    <h3>
+                        Future Revenue Projection
+                    </h3>
+
+                    <p>
+                        Machine learning based revenue
+                        forecasting results.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-card">
+
+                <h3>
+                    Next 6 Months Forecast
+                </h3>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Month
+                                </th>
+
+                                <th>
+                                    Forecasted Revenue
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="forecast-data">
+
+                            <tr>
+
+                                <td colspan="2">
+                                    Loading...
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             ANOMALIES
+        ========================== -->
+
+        <section
+            id="anomalies"
+            class="content-section">
+
+
+            <div class="section-header">
+
+                <p class="section-label">
+                    RISK MONITORING
+                </p>
+
+                <h2>
+                    Anomaly Transaction Details
+                </h2>
+
+                <p>
+                    High-value unusual transactions
+                    detected by the anomaly detection model.
+                </p>
+
+            </div>
+
+
+            <div class="warning-box">
+
+                <div class="warning-icon">
+                    ⚠
+                </div>
+
+                <div>
+
+                    <h3>
+                        Unusual Transaction Monitoring
+                    </h3>
+
+                    <p>
+                        Review transactions identified
+                        as potential anomalies.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-card">
+
+                <h3>
+                    Top 10 Unusual Transactions
+                </h3>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Transaction ID
+                                </th>
+
+                                <th>
+                                    Amount
+                                </th>
+
+                                <th>
+                                    Category
+                                </th>
+
+                                <th>
+                                    Department
+                                </th>
+
+                                <th>
+                                    Payment Method
+                                </th>
+
+                                <th>
+                                    Region
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="anomaly-details">
+
+                            <tr>
+
+                                <td colspan="6">
+                                    Loading...
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             FOOTER
+        ========================== -->
+
+        <footer class="footer">
+
+            <p>
+                AI Finance Controller
+            </p>
+
+            <span>
+                MCA Data Analytics Project
+            </span>
+
+        </footer>
+
+
+    </main>
 
 </div>
 
 
-<!-- JAVASCRIPT -->
+
 <script>
+
+
+    // =========================
+    // NAVIGATION
+    // =========================
+
+    function showSection(
+        sectionId,
+        clickedButton
+    ) {
+
+        const sections =
+            document.querySelectorAll(
+                ".content-section"
+            );
+
+
+        sections.forEach(section => {
+
+            section.classList.remove(
+                "active-section"
+            );
+
+        });
+
+
+        const selectedSection =
+            document.getElementById(
+                sectionId
+            );
+
+
+        if (selectedSection) {
+
+            selectedSection.classList.add(
+                "active-section"
+            );
+
+        }
+
+
+        const buttons =
+            document.querySelectorAll(
+                ".nav-item"
+            );
+
+
+        buttons.forEach(button => {
+
+            button.classList.remove(
+                "active"
+            );
+
+        });
+
+
+        if (clickedButton) {
+
+            clickedButton.classList.add(
+                "active"
+            );
+
+        }
+
+
+        updatePageTitle(sectionId);
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+
+    function showSectionById(sectionId) {
+
+        const buttons =
+            document.querySelectorAll(
+                ".nav-item"
+            );
+
+
+        let selectedButton = null;
+
+
+        buttons.forEach(button => {
+
+            if (
+                button.getAttribute("onclick")
+                    .includes("'" + sectionId + "'")
+            ) {
+
+                selectedButton = button;
+
+            }
+
+        });
+
+
+        showSection(
+            sectionId,
+            selectedButton
+        );
+
+    }
+
+
+
+    function updatePageTitle(sectionId) {
+
+        const titles = {
+
+            dashboard:
+                "Financial Dashboard",
+
+            monthly:
+                "Monthly Financial Analysis",
+
+            insights:
+                "AI Financial Insights",
+
+            reconciliation:
+                "AI Reconciliation Agent",
+
+            forecast:
+                "Revenue Forecast",
+
+            anomalies:
+                "Anomaly Monitoring"
+
+        };
+
+
+        document.getElementById(
+            "page-title"
+        ).textContent =
+            titles[sectionId] ||
+            "Financial Dashboard";
+
+    }
+
+
 
     // =========================
     // FINANCIAL SUMMARY
@@ -226,26 +1112,47 @@
 
         .then(data => {
 
-            document.getElementById("revenue").textContent =
+            document.getElementById(
+                "revenue"
+            ).textContent =
+
                 "₹ " +
-                (data.total_revenue / 10000000).toFixed(2) +
+                (
+                    data.total_revenue /
+                    10000000
+                ).toFixed(2) +
                 " Cr";
 
-            document.getElementById("expense").textContent =
+
+            document.getElementById(
+                "expense"
+            ).textContent =
+
                 "₹ " +
-                (data.total_expense / 10000000).toFixed(2) +
+                (
+                    data.total_expense /
+                    10000000
+                ).toFixed(2) +
                 " Cr";
 
-            document.getElementById("profit").textContent =
+
+            document.getElementById(
+                "profit"
+            ).textContent =
+
                 "₹ " +
-                (data.net_profit / 10000000).toFixed(2) +
+                (
+                    data.net_profit /
+                    10000000
+                ).toFixed(2) +
                 " Cr";
 
         });
 
 
+
     // =========================
-    // ANOMALIES COUNT
+    // ANOMALY COUNT
     // =========================
 
     fetch("/api/anomalies")
@@ -254,14 +1161,17 @@
 
         .then(data => {
 
-            document.getElementById("anomalies").textContent =
+            document.getElementById(
+                "anomaly-count"
+            ).textContent =
                 data.total_anomalies.toLocaleString();
 
         });
 
 
+
     // =========================
-    // MONTHLY ANALYSIS + CHART
+    // MONTHLY ANALYSIS
     // =========================
 
     fetch("/api/monthly")
@@ -270,49 +1180,82 @@
 
         .then(data => {
 
+
             const tableBody =
-                document.getElementById("monthly-data");
+                document.getElementById(
+                    "monthly-data"
+                );
+
 
             tableBody.innerHTML = "";
 
 
-            // Monthly table
-
             data.data.forEach(row => {
 
                 const tr =
-                    document.createElement("tr");
+                    document.createElement(
+                        "tr"
+                    );
+
 
                 tr.innerHTML = `
-                    <td>${row.month}</td>
-                    <td>₹ ${Number(row.revenue).toLocaleString()}</td>
-                    <td>₹ ${Number(row.expense).toLocaleString()}</td>
-                    <td>₹ ${Number(row.profit).toLocaleString()}</td>
+
+                    <td>
+                        ${row.month}
+                    </td>
+
+                    <td>
+                        ₹ ${Number(
+                            row.revenue
+                        ).toLocaleString()}
+                    </td>
+
+                    <td>
+                        ₹ ${Number(
+                            row.expense
+                        ).toLocaleString()}
+                    </td>
+
+                    <td>
+                        ₹ ${Number(
+                            row.profit
+                        ).toLocaleString()}
+                    </td>
+
                 `;
+
 
                 tableBody.appendChild(tr);
 
             });
 
 
-            // Monthly chart
+
+            // Chart
 
             const ctx =
-                document.getElementById("monthlyChart");
+                document.getElementById(
+                    "monthlyChart"
+                );
 
 
             new Chart(ctx, {
 
                 type: "line",
 
+
                 data: {
 
                     labels:
-                        data.data.map(row => row.month),
+                        data.data.map(
+                            row => row.month
+                        ),
+
 
                     datasets: [
 
                         {
+
                             label: "Revenue",
 
                             data:
@@ -321,9 +1264,12 @@
                                 ),
 
                             tension: 0.3
+
                         },
 
+
                         {
+
                             label: "Expense",
 
                             data:
@@ -332,9 +1278,12 @@
                                 ),
 
                             tension: 0.3
+
                         },
 
+
                         {
+
                             label: "Profit",
 
                             data:
@@ -343,17 +1292,29 @@
                                 ),
 
                             tension: 0.3
+
                         }
 
                     ]
 
                 },
 
+
                 options: {
 
                     responsive: true,
 
                     maintainAspectRatio: true,
+
+                    plugins: {
+
+                        legend: {
+
+                            position: "top"
+
+                        }
+
+                    },
 
                     scales: {
 
@@ -378,8 +1339,9 @@
         });
 
 
+
     // =========================
-    // AI FINANCIAL INSIGHTS
+    // AI INSIGHTS
     // =========================
 
     fetch("/api/insights")
@@ -388,28 +1350,179 @@
 
         .then(data => {
 
+
             const insightsList =
-                document.getElementById("insights-list");
+                document.getElementById(
+                    "insights-list"
+                );
+
 
             insightsList.innerHTML = "";
 
 
-            data.insights.forEach(insight => {
+            data.insights.forEach(
+                (insight, index) => {
 
-                const li =
-                    document.createElement("li");
 
-                li.textContent = insight;
+                    const li =
+                        document.createElement(
+                            "li"
+                        );
 
-                insightsList.appendChild(li);
 
-            });
+                    li.innerHTML = `
+
+                        <span class="insight-number">
+                            ${index + 1}
+                        </span>
+
+                        <span>
+                            ${insight}
+                        </span>
+
+                    `;
+
+
+                    insightsList.appendChild(
+                        li
+                    );
+
+                }
+            );
 
         });
 
 
+
     // =========================
-    // REVENUE FORECAST
+    // RECONCILIATION
+    // =========================
+
+    fetch("/api/reconciliation")
+
+        .then(response => {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Reconciliation API error"
+                );
+
+            }
+
+            return response.json();
+
+        })
+
+        .then(data => {
+
+
+            document.getElementById(
+                "recon-total"
+            ).textContent =
+                data.total_records;
+
+
+            document.getElementById(
+                "recon-matched"
+            ).textContent =
+                data.matched_records;
+
+
+            document.getElementById(
+                "recon-exceptions"
+            ).textContent =
+                data.exception_records;
+
+
+            document.getElementById(
+                "recon-rate"
+            ).textContent =
+                data.match_rate + "%";
+
+
+            document.getElementById(
+                "recon-insight"
+            ).textContent =
+
+                data.match_rate +
+                "% of financial records were successfully matched. " +
+
+                data.exception_records +
+                " records require manual review due to amount mismatches.";
+
+
+
+            const exceptionTable =
+                document.getElementById(
+                    "reconciliation-data"
+                );
+
+
+            exceptionTable.innerHTML = "";
+
+
+            data.exceptions.forEach(row => {
+
+
+                const tr =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                tr.innerHTML = `
+
+                    <td>
+                        ${row.transaction_id}
+                    </td>
+
+                    <td>
+                        ₹ ${Number(
+                            row.transaction_amount
+                        ).toLocaleString()}
+                    </td>
+
+                    <td>
+                        ₹ ${Number(
+                            row.paid_amount
+                        ).toLocaleString()}
+                    </td>
+
+                    <td>
+                        ₹ ${Number(
+                            row.difference
+                        ).toLocaleString()}
+                    </td>
+
+                    <td>
+                        ${row.reason}
+                    </td>
+
+                `;
+
+
+                exceptionTable.appendChild(
+                    tr
+                );
+
+            });
+
+        })
+
+        .catch(error => {
+
+            console.error(
+                "Reconciliation Error:",
+                error
+            );
+
+        });
+
+
+
+    // =========================
+    // FORECAST
     // =========================
 
     fetch("/api/forecast")
@@ -418,31 +1531,48 @@
 
         .then(data => {
 
+
             const forecastTable =
-                document.getElementById("forecast-data");
+                document.getElementById(
+                    "forecast-data"
+                );
+
 
             forecastTable.innerHTML = "";
 
 
             data.forecast.forEach(row => {
 
+
                 const tr =
-                    document.createElement("tr");
+                    document.createElement(
+                        "tr"
+                    );
+
 
                 tr.innerHTML = `
-                    <td>${row.month}</td>
+
+                    <td>
+                        ${row.month}
+                    </td>
+
                     <td>
                         ₹ ${Number(
                             row.forecasted_revenue
                         ).toLocaleString()}
                     </td>
+
                 `;
 
-                forecastTable.appendChild(tr);
+
+                forecastTable.appendChild(
+                    tr
+                );
 
             });
 
         });
+
 
 
     // =========================
@@ -455,19 +1585,30 @@
 
         .then(data => {
 
+
             const anomalyTable =
-                document.getElementById("anomaly-details");
+                document.getElementById(
+                    "anomaly-details"
+                );
+
 
             anomalyTable.innerHTML = "";
 
 
             data.anomalies.forEach(row => {
 
+
                 const tr =
-                    document.createElement("tr");
+                    document.createElement(
+                        "tr"
+                    );
+
 
                 tr.innerHTML = `
-                    <td>${row.transaction_id}</td>
+
+                    <td>
+                        ${row.transaction_id}
+                    </td>
 
                     <td>
                         ₹ ${Number(
@@ -475,22 +1616,36 @@
                         ).toLocaleString()}
                     </td>
 
-                    <td>${row.category}</td>
+                    <td>
+                        ${row.category}
+                    </td>
 
-                    <td>${row.department}</td>
+                    <td>
+                        ${row.department}
+                    </td>
 
-                    <td>${row.payment_method}</td>
+                    <td>
+                        ${row.payment_method}
+                    </td>
 
-                    <td>${row.region}</td>
+                    <td>
+                        ${row.region}
+                    </td>
+
                 `;
 
-                anomalyTable.appendChild(tr);
+
+                anomalyTable.appendChild(
+                    tr
+                );
 
             });
 
         });
 
+
 </script>
+
 
 </body>
 
