@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Finance Controller</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+ <div class="dashboard">
+   <div>
+    <nav class="navbar">
+    <div class="logo">AI Finance Controller</div>
+
+    <div class="nav-links">
+        <a href="/">Dashboard</a>
+        <a href="#monthly">Monthly Analysis</a>
+        <a href="#insights">AI Insights</a>
+        <a href="#forecast">Forecast</a>
+        <a href="#anomalies">Anomalies</a>
+    </div>
+</nav>
+    <h1>AI Finance Controller</h1>
+
+    <h2>AI-Powered Financial Analytics Dashboard</h2>
+
+    <p>AI-powered financial data analytics and forecasting system.</p>
+
+    <hr>
+    <div>
+    <h2>Financial Overview</h2>
+    <div class="cards">
+    <div class="card">
+        <h3>Total Revenue</h3>
+        <p id="revenue">Loading...</p>
+    </div>
+
+    <div class="card">
+        <h3>Total Expense (₹)</h3>
+        <p id="expense">Loading...</p>
+    </div>
+
+    <div class="card">
+        <h3>Net Profit (₹)</h3>
+        <p id="profit">Loading...</p>
+    </div>
+
+    <div class="card">
+        <h3>Unusual Transactions</h3>
+        <p id="anomalies">Loading...</p>
+    </div>
+    </div>
+    <div class="card" id="monthly" style="margin-top: 30px;">
+    <h2>Monthly Financial Performance</h2>
+
+    <p>
+        Monthly Revenue, Expense and Profit analysis
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Revenue</th>
+                <th>Expense</th>
+                <th>Profit</th>
+            </tr>
+        </thead>
+
+        <tbody id="monthly-data">
+            <tr>
+                <td colspan="4">Loading...</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+    <ul id="insights">
+        <li>Loading financial insights...</li>
+    </ul>
+</div>
+<div class="card" id="forecast" style="margin-top: 30px;">
+    <h2>Revenue Forecast</h2>
+
+    <p>Next 6 Months Revenue Forecast</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Forecasted Revenue</th>
+            </tr>
+        </thead>
+
+        <tbody id="forecast-data">
+            <tr>
+                <td colspan="2">Loading...</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="card" id="anomalies" style="margin-top: 30px;">
+    <h2>Anomaly Transaction Details</h2>
+
+    <p>Top 10 high-value unusual transactions</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Transaction ID</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Department</th>
+                <th>Payment Method</th>
+                <th>Region</th>
+            </tr>
+        </thead>
+
+        <tbody id="anomaly-details">
+            <tr>
+                <td colspan="6">Loading...</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+    </div>
+</div>
+</div>
+<script>
+    fetch("/api/summary")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("revenue").textContent =
+                "₹ " + (data.total_revenue / 10000000).toFixed(2) + " Cr";
+
+            document.getElementById("expense").textContent =
+                "₹ " + (data.total_expense / 10000000).toFixed(2) + " Cr";
+
+            document.getElementById("profit").textContent =
+                "₹ " + (data.total_revenue / 10000000).toFixed(2) + " Cr";
+        });
+
+    fetch("/api/anomalies")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("anomalies").textContent =
+                data.total_anomalies.toLocaleString();
+        });
+        fetch("/api/monthly")
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.getElementById("monthly-data");
+
+            tableBody.innerHTML = "";
+
+            data.data.forEach(row => {
+                const tr = document.createElement("tr");
+
+                tr.innerHTML = `
+                    <td>${row.month}</td>
+                    <td>₹ ${row.revenue.toLocaleString()}</td>
+                    <td>₹ ${row.expense.toLocaleString()}</td>
+                    <td>₹ ${row.profit.toLocaleString()}</td>
+                `;
+
+                tableBody.appendChild(tr);
+            });
+        });
+        fetch("/api/insights")
+        .then(response => response.json())
+        .then(data => {
+            const insightsList = document.getElementById("insights");
+
+            insightsList.innerHTML = "";
+
+            data.insights.forEach(insight => {
+                const li = document.createElement("li");
+                li.textContent = insight;
+                insightsList.appendChild(li);
+            });
+        });
+        fetch("/api/forecast")
+        .then(response => response.json())
+        .then(data => {
+            const forecastTable = document.getElementById("forecast-data");
+
+            forecastTable.innerHTML = "";
+
+            data.forecast.forEach(row => {
+                const tr = document.createElement("tr");
+
+                tr.innerHTML = `
+                    <td>${row.month}</td>
+                    <td>₹ ${Number(row.forecasted_revenue).toLocaleString()}</td>
+                `;
+
+                forecastTable.appendChild(tr);
+            });
+        });
+        fetch("/api/anomaly-details")
+        .then(response => response.json())
+        .then(data => {
+            const anomalyTable =
+                document.getElementById("anomaly-details");
+
+            anomalyTable.innerHTML = "";
+
+            data.anomalies.forEach(row => {
+                const tr = document.createElement("tr");
+
+                tr.innerHTML = `
+                    <td>${row.transaction_id}</td>
+                    <td>₹ ${Number(row.amount).toLocaleString()}</td>
+                    <td>${row.category}</td>
+                    <td>${row.department}</td>
+                    <td>${row.payment_method}</td>
+                    <td>${row.region}</td>
+                `;
+
+                anomalyTable.appendChild(tr);
+            });
+        });
+</script>
+</div>
+<footer class="footer">
+    <p>AI Finance Controller | Financial Analytics & Forecasting</p>
+    <p>Developed as an MCA Data Analytics Project</p>
+</footer>
+</body>
+</html>
